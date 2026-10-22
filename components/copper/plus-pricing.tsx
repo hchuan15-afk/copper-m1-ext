@@ -20,6 +20,10 @@ import { cn } from "@/lib/utils";
 const yearlySavings = (plan: Plan) =>
   Math.round((plan.monthlyUsd * 12 - plan.annualUsd) * 100) / 100;
 
+// The annual price spread over 12 months, rounded to cents.
+const annualPerMonth = (plan: Plan) =>
+  Math.round((plan.annualUsd / 12) * 100) / 100;
+
 export function PlusPricing() {
   const plans = getPlans();
 
@@ -74,7 +78,8 @@ export function PlusPricing() {
                         <span className="text-muted-foreground">/month</span>
                       </p>
                       <CardDescription className="mt-1 text-base">
-                        or {formatUsd(plan.annualUsd)}/year
+                        or {formatUsd(annualPerMonth(plan))}/month, billed{" "}
+                        {formatUsd(plan.annualUsd)} yearly
                         {savings > 0 && (
                           <> &middot; Save {formatUsd(savings)} a year</>
                         )}
