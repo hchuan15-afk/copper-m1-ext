@@ -1,10 +1,7 @@
 import { Logo } from "@/components/copper/logo";
+import { NAV as ALL_NAV } from "@/components/copper/nav-links";
 
-const NAV = [
-  { href: "#products", label: "Products" },
-  { href: "#plus", label: "Copper Plus" },
-  { href: "#privacy", label: "Privacy" },
-];
+const NAV = ALL_NAV.filter((item) => item.header);
 
 // Night Sky in both themes, so the brand hex is used instead of a theme class.
 export function SiteFooter() {

@@ -49,7 +49,7 @@ export function Showcase() {
     <section
       id="showcase"
       data-testid="showcase"
-      className="bg-secondary text-secondary-foreground scroll-mt-28 sm:scroll-mt-20"
+      className="bg-secondary text-secondary-foreground scroll-mt-20"
     >
       <div className="mx-auto max-w-6xl px-4 py-16 md:py-24">
         <h2 className="mb-12 max-w-2xl text-3xl font-extrabold sm:text-4xl">

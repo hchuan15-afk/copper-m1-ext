@@ -29,7 +29,7 @@ export function Products() {
     <section
       id="products"
       data-testid="products"
-      className="bg-background scroll-mt-28 sm:scroll-mt-20"
+      className="bg-background scroll-mt-20"
     >
       <div className="mx-auto max-w-6xl px-4 py-16 md:py-24">
         <div className="mb-10 max-w-2xl">
@@ -47,8 +47,9 @@ export function Products() {
             <Card
               key={product.id}
               data-testid="product-card"
+              id={product.id}
               data-product={product.id}
-              className="gap-6 pt-0"
+              className="scroll-mt-20 gap-6 pt-0"
             >
               <div className="bg-secondary flex justify-center px-10 py-8">
                 <Image

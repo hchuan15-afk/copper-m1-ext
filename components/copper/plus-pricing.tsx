@@ -1,4 +1,5 @@
 import { CheckIcon, XIcon } from "lucide-react";
+import { PlusPriceToggle } from "@/components/copper/plus-price-toggle";
 import { Badge } from "@/components/ui/badge";
 import {
   Card,
@@ -12,27 +13,14 @@ import {
   formatNotesHours,
   formatUsd,
   getPlans,
-  type Plan,
 } from "@/lib/copper/catalog";
 import { cn } from "@/lib/utils";
-
-// How much a year of monthly payments costs beyond the annual price, rounded to cents.
-const yearlySavings = (plan: Plan) =>
-  Math.round((plan.monthlyUsd * 12 - plan.annualUsd) * 100) / 100;
-
-// The annual price spread over 12 months, rounded to cents.
-const annualPerMonth = (plan: Plan) =>
-  Math.round((plan.annualUsd / 12) * 100) / 100;
 
 export function PlusPricing() {
   const plans = getPlans();
 
   return (
-    <section
-      id="plus"
-      data-testid="plus-pricing"
-      className="scroll-mt-28 sm:scroll-mt-20"
-    >
+    <section id="plus" data-testid="plus-pricing" className="scroll-mt-20">
       <div className="mx-auto max-w-6xl px-4 py-16 md:py-24">
         <div className="mx-auto mb-12 max-w-2xl text-center">
           <h2 className="text-3xl font-extrabold sm:text-4xl">
@@ -47,7 +35,6 @@ export function PlusPricing() {
         <div className="mx-auto grid max-w-4xl gap-6 md:grid-cols-2">
           {plans.map((plan) => {
             const paid = plan.monthlyUsd > 0;
-            const savings = yearlySavings(plan);
             const rows = [
               { label: "Memory kept", value: formatMemory(plan.memoryDays) },
               {
@@ -70,21 +57,10 @@ export function PlusPricing() {
                     {paid && <Badge>Refine your answers</Badge>}
                   </div>
                   {paid ? (
-                    <div>
-                      <p>
-                        <span className="text-primary font-heading text-4xl font-extrabold">
-                          {formatUsd(plan.monthlyUsd)}
-                        </span>
-                        <span className="text-muted-foreground">/month</span>
-                      </p>
-                      <CardDescription className="mt-1 text-base">
-                        or {formatUsd(annualPerMonth(plan))}/month, billed{" "}
-                        {formatUsd(plan.annualUsd)} yearly
-                        {savings > 0 && (
-                          <> &middot; Save {formatUsd(savings)} a year</>
-                        )}
-                      </CardDescription>
-                    </div>
+                    <PlusPriceToggle
+                      monthlyUsd={plan.monthlyUsd}
+                      annualUsd={plan.annualUsd}
+                    />
                   ) : (
                     <div>
                       <p className="font-heading text-4xl font-extrabold">

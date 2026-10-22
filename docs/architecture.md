@@ -86,3 +86,33 @@ When a module changes how the app fits together, add a section here:
 **Risks and open questions:** cost, privacy, accuracy or safety risks, and how
 you handle them.
 ```
+
+## Module 1: Landing page (with copper-m1-ext extras)
+
+**Summary:** `/` is a single static landing page that sells Copper Home and
+Copper Notes, explains Copper Plus and the 2026 privacy policy. copper-m1-ext
+adds a comparison table, a "which Copper" quiz, a Monthly/Yearly price switch,
+an FAQ, a phone menu, a current-section highlight and a back-to-top button.
+
+| Piece | Where | What it does |
+|---|---|---|
+| Page / route | `app/page.tsx` | The only route; composes the sections in order |
+| Sections | `components/copper/{hero,products,compare,quiz-section,showcase,plus-pricing,privacy-summary,faq}.tsx` | Server components that read `lib/copper/catalog.ts` |
+| Interactive pieces | `components/copper/{section-nav,plus-price-toggle,quiz,back-to-top}.tsx` | Client components: menu and scroll highlight, billing switch, quiz, back-to-top |
+| Data | `lib/copper/catalog.ts` | Prices, plans, features, colors, privacy facts (read-only) |
+| AI calls | none | |
+
+**Data flow:** request → `app/page.tsx` (static, prerendered at build) → section
+components read the catalog → HTML. Client components get catalog values as
+props; nothing is sent back to a server.
+
+**Decisions and trade-offs:** prices are always formatted from the catalog
+(never typed), so a catalog change updates every section. Product Bible facts
+the catalog doesn't hold (warranty, battery, "best for") live as small constants
+next to the component that shows them. Only shadcn components already in
+`components/ui` are used.
+
+**Risks and open questions:** the FAQ and comparison table copy Product Bible
+facts by hand, so they must be updated if the 2026 policies change. Only
+customer-facing 2026 facts are used, never the old 2024 privacy policy or the
+Marketing FAQ's "never records" error.

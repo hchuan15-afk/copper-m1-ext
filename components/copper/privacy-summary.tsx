@@ -13,7 +13,7 @@ export function PrivacySummary() {
     <section
       id="privacy"
       data-testid="privacy-summary"
-      className="bg-accent text-accent-foreground scroll-mt-28 sm:scroll-mt-20"
+      className="bg-accent text-accent-foreground scroll-mt-20"
     >
       <div className="mx-auto grid max-w-6xl items-center gap-10 px-4 py-16 md:grid-cols-[1fr_2fr] md:gap-16 md:py-24">
         <Image
